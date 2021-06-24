@@ -6,12 +6,13 @@ var form = document.querySelector(".location form")
 
 form.addEventListener("submit", e => {
     e.preventDefault()
-    // var inputVal = input.value why is this undeclared?
+    var inputVal = input.value //why is this undeclared?
 })
 
 var apiKey = "c54b26351ced73049073d309a5b59b67"
-// var inputVal = input.value
+var inputVal = input.value
 var btn = document.querySelector("button")
+var url = 'https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&units=imperial&appid=${apiKey}'
 
 btn.onclick = function() {
     // fetch('https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&units=imperial&appid=${apiKey}') // make the request
