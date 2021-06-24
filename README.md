@@ -1,5 +1,11 @@
 # Weather Widget
 
+## Resources I used
+
+Duckett, J., Ruppert, G., & Moore, J. (2014). Javascript & JQuery: Interactive front-end Web development. Indianapolis, Ind: John Wiley & Sons.
+
+https://webdesign.tutsplus.com/tutorials/build-a-simple-weather-app-with-vanilla-javascript--cms-33893
+
 &nbsp;
 ## Background
 
