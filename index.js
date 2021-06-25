@@ -1,54 +1,83 @@
-//from Lee's live lecture and notes
+//from Lee's live lecture, notes, slack msgs and https://webdesign.tutsplus.com/tutorials/build-a-simple-weather-app-with-vanilla-javascript--cms-33893 (part of this tutorial is the following codepen: https://codepen.io/tutsplus/details/gObLaEP)
 
-//https://webdesign.tutsplus.com/tutorials/build-a-simple-weather-app-with-vanilla-javascript--cms-33893
-
-var form = document.getElementById("form")
-var input = document.getElementById("input")
-var value = document.getElementById("value")
-
-var form = document.querySelector("form input")
+var form = document.querySelector(".container form")
+var input = document.querySelector(".container input")
+var msg = document.querySelector(".container .message")
+var apiKey = "c54b26351ced73049073d309a5b59b67"
 
 form.addEventListener("submit", e => {
     e.preventDefault()
     var inputVal = input.value //see Lee's slack msg
+    var locationsEl = document.getElementById("locations") //lecture notes, changed the id from users to location
+    var btn = document.querySelector("button") //lecture notes
+    var url = "https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=imperial"
+
+    // btn.onclick = function () {
+        fetch(url) // make the request
+            .then(function (res) {
+                return res.json() // when the response is received, convert to json
+            })
+            .then(function (res) {
+                // console.log(res.results)
+                renderLocations(res.results) // when the json is converted, log it
+                //do stuff
+                //"results" was added in lecture
+            })
+        console.log('Here!') // note this will log BEFORE fetch is finished
+    // }
+
+    //from Lee slack message: use a text input and a button (regarding the input.value issue)
+
+    function renderLocations(locations) {
+        locationsEl.innerHTML = ""
+        locations.forEach(location => {
+            var locationContainer = document.createElement("div")
+            locationContainer.classList.add("location-container")
+
+            var name = document.createElement('h2')
+            name.textContent = name + " , USA "
+            locationContainer.appendChild(name)
+
+        })
+    }
 })
 
-var apiKey = "c54b26351ced73049073d309a5b59b67"
-var inputVal = input.value
+// check codepen if we want to go back and solve for possible issues with locations "mockups have this as location not found"
 
-var locationEl = document.getElementById("location") //lecture notes, changed the id from users to location
-var btn = document.querySelector("button") //lecture notes
-var url = 'https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&units=imperial&appid=${apiKey}'
+//codepen does not use btn function; lee says to use textinput and button; target the input element in addition to targeting the form
 
-btn.onclick = function() {
-    // fetch('https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&units=imperial&appid=${apiKey}') // make the request
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=Orlando&units=imperial&appid=c54b26351ced73049073d309a5b59b67') // make the request
-    .then(function(res) {
-        return res.json() // when the response is received, convert to json
-    })
-    .then(function(res) {
-        console.log(res.results)
-        renderLocation(res.results) // when the json is converted, log it
-        //do stuff
-        //"results" was added in lecture
-    })
-console.log('Here!') // note this will log BEFORE fetch is finished
-}
-
-//from Lee slack message: use a text input and a button (regarding the input.value issue)
-
-function renderLocation(location) {
-    locationEl.innerHTML = ""
-    location.forEach(location => {
-        var locationContainer = document.createElement("div")
-        locationContainer.classList.add('location-container')
-    
-        var name = document.createElement('h2')
-        name.textContent = name + "Long: " + coord.lon + "Lat: " + coord.lat
-        userContainer.appendChild(name)
-    
-    })
-}
+// var locationsEl = document.getElementById("locations") //lecture notes, changed the id from users to location
+// var btn = document.querySelector("button") //lecture notes
+// var url = "https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=imperial"
+// 
+// btn.onclick = function() {
+    // fetch(url) // make the request
+        // .then(function(res) {
+            // return res.json() // when the response is received, convert to json
+        // })
+        // .then(function(res) {
+            // console.log(res.results)
+            // renderLocations(res.results) // when the json is converted, log it
+            // do stuff
+            // "results" was added in lecture
+        // })
+    // console.log('Here!') // note this will log BEFORE fetch is finished
+// }
+// 
+// from Lee slack message: use a text input and a button (regarding the input.value issue)
+// 
+// function renderLocations(locations) {
+    // locationsEl.innerHTML = ""
+    // locations.forEach(location => {
+        // var locationContainer = document.createElement("div")
+        // locationContainer.classList.add("location-container")
+    // 
+        // var name = document.createElement('h2')
+        // name.textContent = name + " , USA " 
+        // locationContainer.appendChild(name)
+    // 
+    // })
+// }
 
 // 1. name (city)
 // 2. weather.description
