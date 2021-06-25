@@ -2,16 +2,22 @@
 
 //https://webdesign.tutsplus.com/tutorials/build-a-simple-weather-app-with-vanilla-javascript--cms-33893
 
-var form = document.querySelector(".location form")
+var form = document.getElementById("form")
+var input = document.getElementById("input")
+var value = document.getElementById("value")
+
+var form = document.querySelector("form input")
 
 form.addEventListener("submit", e => {
     e.preventDefault()
-    var inputVal = input.value //why is this undeclared?
+    var inputVal = input.value //see Lee's slack msg
 })
 
 var apiKey = "c54b26351ced73049073d309a5b59b67"
 var inputVal = input.value
-var btn = document.querySelector("button")
+
+var locationEl = document.getElementById("location") //lecture notes, changed the id from users to location
+var btn = document.querySelector("button") //lecture notes
 var url = 'https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&units=imperial&appid=${apiKey}'
 
 btn.onclick = function() {
@@ -21,17 +27,36 @@ btn.onclick = function() {
         return res.json() // when the response is received, convert to json
     })
     .then(function(res) {
-        console.log(res.results) // when the json is converted, log it
+        console.log(res.results)
+        renderLocation(res.results) // when the json is converted, log it
         //do stuff
         //"results" was added in lecture
     })
-
 console.log('Here!') // note this will log BEFORE fetch is finished
 }
 
+//from Lee slack message: use a text input and a button (regarding the input.value issue)
 
+function renderLocation(location) {
+    locationEl.innerHTML = ""
+    location.forEach(location => {
+        var locationContainer = document.createElement("div")
+        locationContainer.classList.add('location-container')
+    
+        var name = document.createElement('h2')
+        name.textContent = name + "Long: " + coord.lon + "Lat: " + coord.lat
+        userContainer.appendChild(name)
+    
+    })
+}
 
-
+// 1. name (city)
+// 2. weather.description
+// 3. weather.icon
+// 4. main.temp
+// 5. main.feels_like
+// 6. dt (last update)
+// 
 //https://www.w3schools.com/jsref/tryit.aspfilename=tryjsref_prompt
 
 

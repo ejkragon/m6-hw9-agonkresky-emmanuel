@@ -23,30 +23,21 @@
 </head>
 
 <body class="container vh-100">
-    <header>
-        <h1>Current Weather</h1>
-    </header>
-    <main>
-        <section class="location">
-            <h2>
-            Enter location in the box below
-            </h2>
-        <!-- https://www.w3schools.com/tags/att_form_action.asp -->
-                <form>
-                    <input type="text" placeholder="Enter Location" autofocus>
-                    <button type="submit">Submit</button>
-                    <span class="message"></span>
-                </form>
-        <h2>Orlando, US</h2>
-        <h3>Insert Icon Here</h3>
-        <h3>Cloud Cover Info</h3>
-        <h3>Current Temperature:</h3>
-        <h3>Feels Like:</h3>
-        <h3>Last Updated:</h3>
-        </section>
-   </main>
-
-
+    <h1>Current Weather</h1>
+    <!-- https://www.w3schools.com/tags/att_form_action.asp -->
+    <form>
+        <input type="text" placeholder="Enter Location" id="input" autofocus>
+        <button id="value" type="submit">Submit</button>
+        <div id="location"></div>
+        <span class="message"></span>
+    </form>
+    <!-- <h2>Orlando, US</h2> -->
+    <!-- <h3>Insert Icon Here</h3> -->
+    <!-- <h3>Cloud Cover Info</h3> -->
+    <!-- <h3>Current Temperature:</h3> -->
+    <!-- <h3>Feels Like:</h3> -->
+    <!-- <h3>Last Updated:</h3> -->
+    
 
     <script src="index.js"></script>
 
