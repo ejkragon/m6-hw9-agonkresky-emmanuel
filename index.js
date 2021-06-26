@@ -2,26 +2,61 @@
 
 var form = document.querySelector(".container form")
 var input = document.querySelector(".container input")
-var msg = document.querySelector(".container .message")
+var msg = document.querySelector(".container .msg")
+var list = document.querySelector(".ajax .cities")
 var apiKey = "c54b26351ced73049073d309a5b59b67"
 
 form.addEventListener("submit", e => {
     e.preventDefault()
     var inputVal = input.value //see Lee's slack msg
-    var locationsEl = document.getElementById("locations") //lecture notes, changed the id from users to location
-    var btn = document.querySelector("button") //lecture notes
+
+    // section copied over from codepen even though original allows for multiple cities, go back to edit 
+    var listItems = list.querySelectorAll(".ajax .city") // codepen has this as singular even though HTML has this as plural
+    var listItemsArray = Array.from(listItems)
+
+    if(listItemsArray.length > 0) {
+        var filteredArray = listItemsArray.filter(el => {
+            var content = ""
+            if (inputVal.includes(",")) {
+                if (inputVal.split(",")[1].length > 2) {
+                    inputVal = inputVal.split(",")[0]
+                    content = el
+                        .querySelector(".city-name span")
+                        .textContent.toLowerCase();
+                } else {
+                    content = el.querySelector(".city-name").dataset.name.toLowerCase()
+                }
+            } else {
+                content = el.querySelector(".city-name span").textContent.toLowerCase()
+            }
+            return content == inputVal.toLowerCase();
+        })
+
+        if (filteredArray.length > 0) {
+            msg.textContent = `You already know the weather for ${filteredArray[0].querySelector(".city-name span").textContent
+                } ...otherwise be more specific by providing the country code as well 😉`;
+            form.reset()
+            input.focus()
+            return
+        }
+    }
+
+    var locationsEl = document.getElementById("locations") //lecture notes, changed the id from users to location (may not need)
+    var btn = document.querySelector("button") //lecture notes (may not need)
     var url = "https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=imperial"
 
+
+
     // btn.onclick = function () {
-        fetch(url) // make the request
-            .then(function (res) {
-                return res.json() // when the response is received, convert to json
+    fetch(url) // make the request
+        .then(function (res) {
+            return res.json() // when the response is received, convert to json
             })
-            .then(function (res) {
-                // console.log(res.results)
-                renderLocations(res.results) // when the json is converted, log it
-                //do stuff
-                //"results" was added in lecture
+        .then(function (res) {
+            // console.log(res.results)
+            renderLocations(res.results) // when the json is converted, log it
+            //do stuff
+            //"results" was added in lecture
             })
         console.log('Here!') // note this will log BEFORE fetch is finished
     // }
