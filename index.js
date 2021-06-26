@@ -43,39 +43,77 @@ form.addEventListener("submit", e => {
 
     var locationsEl = document.getElementById("locations") //lecture notes, changed the id from users to location (may not need)
     var btn = document.querySelector("button") //lecture notes (may not need)
-    var url = "https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=imperial"
+    // var url = 'https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=imperial' // this link works if i copy and paste into chrome (with Orlando and API key)
+    
+    // var url = "https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric"
+    var url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric` // copy and pasting from codepen works, i could not make this work otherwise. strange.
+    // var url = 'https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&units=imperial&appid=${apiKey}' // copy and pasted from Lee's word doc, removed spaces and typed in ${variables}
 
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            const { main, name, sys, weather } = data;
+            const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${weather[0]["icon"]
+                }.svg`;
 
-
-    // btn.onclick = function () {
-    fetch(url) // make the request
-        .then(function (res) {
-            return res.json() // when the response is received, convert to json
-            })
-        .then(function (res) {
-            // console.log(res.results)
-            renderLocations(res.results) // when the json is converted, log it
-            //do stuff
-            //"results" was added in lecture
-            })
-        console.log('Here!') // note this will log BEFORE fetch is finished
-    // }
-
-    //from Lee slack message: use a text input and a button (regarding the input.value issue)
-
-    function renderLocations(locations) {
-        locationsEl.innerHTML = ""
-        locations.forEach(location => {
-            var locationContainer = document.createElement("div")
-            locationContainer.classList.add("location-container")
-
-            var name = document.createElement('h2')
-            name.textContent = name + " , USA "
-            locationContainer.appendChild(name)
-
+            const li = document.createElement("li");
+            li.classList.add("city");
+            const markup = `
+        <h2 class="city-name" data-name="${name},${sys.country}">
+          <span>${name}</span>
+          <sup>${sys.country}</sup>
+        </h2>
+        <div class="city-temp">${Math.round(main.temp)}<sup>°C</sup></div>
+        <figure>
+          <img class="city-icon" src="${icon}" alt="${weather[0]["description"]
+                }">
+          <figcaption>${weather[0]["description"]}</figcaption>
+        </figure>
+      `;
+            li.innerHTML = markup;
+            list.appendChild(li);
         })
-    }
-})
+        .catch(() => {
+            msg.textContent = "Please search for a valid city 😩";
+        });
+
+    msg.textContent = "";
+    form.reset();
+    input.focus();
+});
+
+
+
+// 
+    // btn.onclick = function () {
+    // fetch(url) // make the request https://api.openweathermap.org/data/2.5/weather?q=Orlando&appid=c54b26351ced73049073d309a5b59b67&units=imperial
+        // .then(function (res) {
+            // return res.json() // when the response is received, convert to json
+            // })
+        // .then(function (res) {
+            // console.log(res.results)
+            // renderLocations(res.results) // when the json is converted, log it
+            // do stuff
+            // "results" was added in lecture
+            // })
+        // console.log('Here!') // note this will log BEFORE fetch is finished
+    // }
+// 
+    // from Lee slack message: use a text input and a button (regarding the input.value issue)
+// 
+    // function renderLocations(locations) {
+        // locationsEl.innerHTML = ""
+        // locations.forEach(location => {
+            // var locationContainer = document.createElement("div")
+            // locationContainer.classList.add("location-container")
+// 
+            // var name = document.createElement('h2')
+            // name.textContent = name + " , USA "
+            // locationContainer.appendChild(name)
+// 
+        // })
+    // }
+// });
 
 // check codepen if we want to go back and solve for possible issues with locations "mockups have this as location not found"
 
