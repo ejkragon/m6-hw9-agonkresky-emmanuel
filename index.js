@@ -68,7 +68,7 @@ form.addEventListener("submit", e => {
                     <span>${name}, ${sys.country}</span>
                 </h2>               
                 <figure>
-                    <img class="city-icon" src="openweathermap-api-icons/icons/${weather[0]["icon"]}.png" alt={weather[0]["description"]}">
+                    <img class="city-icon" src="./images/${weather[0]["icon"]}.png" alt={weather[0]["description"]}">
                     <figcaption><span>${weather[0]["description"]}</span></figcaption>
                 </figure>            
                 <div class="city-temp"><span>currently: ${Math.round(main.temp)}<sup>°</sup></span>F</div>
