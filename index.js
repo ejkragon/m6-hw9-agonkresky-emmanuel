@@ -5,12 +5,14 @@ var input = document.querySelector(".container input")
 var msg = document.querySelector(".container .msg")
 var list = document.querySelector(".ajax .cities")
 var apiKey = "c54b26351ced73049073d309a5b59b67"
+var usersEl = document.getElementById("users") //lecture notes, changed the id from users to location (may not need)
+var btn = document.querySelector("button") //lecture notes (may not need)
 
 form.addEventListener("submit", e => {
     e.preventDefault()
     var inputVal = input.value //see Lee's slack msg
-
-    // section copied over from codepen even though original allows for multiple cities, go back to edit 
+    
+    // section from codepen even though original allows for multiple cities, go back to edit 
     var listItems = list.querySelectorAll(".ajax .city") // codepen has this as singular even though HTML has this as plural
     var listItemsArray = Array.from(listItems)
 
@@ -29,7 +31,7 @@ form.addEventListener("submit", e => {
             } else {
                 content = el.querySelector(".city-name span").textContent.toLowerCase()
             }
-            return content == inputVal.toLowerCase();
+            return content == inputVal.toLowerCase()
         })
 
         if (filteredArray.length > 0) {
@@ -37,83 +39,180 @@ form.addEventListener("submit", e => {
                 } ...otherwise be more specific by providing the country code as well 😉`;
             form.reset()
             input.focus()
-            return
+            return 
         }
     }
 
-    var locationsEl = document.getElementById("locations") //lecture notes, changed the id from users to location (may not need)
-    var btn = document.querySelector("button") //lecture notes (may not need)
-    // var url = 'https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=imperial' // this link works if i copy and paste into chrome (with Orlando and API key)
-    
-    // var url = "https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric"
-    var url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&appid=${apiKey}&units=metric` // copy and pasting from codepen works, i could not make this work otherwise. strange.
-    // var url = 'https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&units=imperial&appid=${apiKey}' // copy and pasted from Lee's word doc, removed spaces and typed in ${variables}
+    var url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&units=imperial&appid=${apiKey}` // copy and pasted from Lee's word doc, removed spaces and typed in ${variables}
 
-    fetch(url)
-        .then(response => response.json())
+    fetch(url) // make the request https://api.openweathermap.org/data/2.5/weather?q=Orlando&appid=c54b26351ced73049073d309a5b59b67&units=imperial
+        .then(response => response.json()) //codepen
+    // .then(function(res) {
+        // return res.json() //lecture notes
+    // })
         .then(data => {
-            const { main, name, sys, weather } = data;
-            const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${weather[0]["icon"]
-                }.svg`;
-
-            const li = document.createElement("li");
-            li.classList.add("city");
-            const markup = `
-        <h2 class="city-name" data-name="${name},${sys.country}">
-          <span>${name}</span>
-          <sup>${sys.country}</sup>
-        </h2>
-        <div class="city-temp">${Math.round(main.temp)}<sup>°C</sup></div>
-        <figure>
-          <img class="city-icon" src="${icon}" alt="${weather[0]["description"]
-                }">
-          <figcaption>${weather[0]["description"]}</figcaption>
-        </figure>
-      `;
-            li.innerHTML = markup;
-            list.appendChild(li);
+            var { name, weatherDescription, weatherIcon, mainTemp, mainFeelsLike, dt } = data; //codepen
+            // var { name, weatherDescription, weatherIcon, mainTemp, mainFeelsLike, dt } = data
+            // renderUsers(res.results) //lecture notes; this is causing an error. Examples has it as "users"
+            // var { name, weatherDescription, weatherIcon, mainTemp, mainFeelsLike, dt } = data //codepen
+            console.log(inputVal); // note this will log BEFORE fetch is finished
+            console.log(data);
+            // .then(function(res) {
+            // renderUsers(res.results)
+        
+            var li = document.createElement("li")
+            li.classList.add("city")
+            var markup = `
+                <h2 class="city-name" data-name="${name},${sys.country}">
+                    <span>${name}</span>
+                    <sup>${sys.country}</sup>
+                </h2>
+                <div class="city-temp">${Math.round(main.temp)}<sup>°F</sup></div>
+            `;
+            li.innerHTML = markup
+            list.appendChild(li)
         })
         .catch(() => {
-            msg.textContent = "Please search for a valid city 😩";
-        });
+            msg.textContent = "Please search for a valid city"
+        })
 
-    msg.textContent = "";
-    form.reset();
-    input.focus();
-});
+    msg.textContent = ""
+    form.reset()
+    input.focus()
+})
 
-
-
+// function renderUsers(users) {
+    // usersEl.innerHTML = ""
+    // users.forEach(user => {
+        // var userContainer = document.createElement("div")
+        // userContainer.classList.add("user-container")
+        // console.log
 // 
-    // btn.onclick = function () {
-    // fetch(url) // make the request https://api.openweathermap.org/data/2.5/weather?q=Orlando&appid=c54b26351ced73049073d309a5b59b67&units=imperial
-        // .then(function (res) {
-            // return res.json() // when the response is received, convert to json
-            // })
-        // .then(function (res) {
-            // console.log(res.results)
-            // renderLocations(res.results) // when the json is converted, log it
+        // var name = document.createElement('h2')
+        // name.textContent = name + ", " + sys.country
+        // userContainer.appendChild(name)
+        // console.log
+// 
+// 
+    // })
+
+         
+        
+
+    
+
+        
+        
+            
+            
+            
+            // when the json is converted, log it
             // do stuff
             // "results" was added in lecture
-            // })
-        // console.log('Here!') // note this will log BEFORE fetch is finished
+    
+
+// 1. name (city)
+// 2. weather.description
+// 3. weather.icon
+// 4. main.temp
+// 5. main.feels_like
+// 6. dt (last update)
+
+//add catch????
+            
+    // renderLocations(res.results)
+            
+            
+    
+
+    
+
     // }
+
+
+// from Lee slack message: use a text input and a button (regarding the input.value issue)
+
+// ); function renderUsers(users) {
+    // usersEl.innerHTML = ""
+    // users.forEach(user => {
+        // var userContainer = document.createElement("div")
+        // userContainer.classList.add("user-container")
+        // console.log
 // 
-    // from Lee slack message: use a text input and a button (regarding the input.value issue)
+        // var name = document.createElement('h2')
+        // name.textContent = name + ", " + sys.country
+        // userContainer.appendChild(name)
+        // console.log
+//   
+    // });
+// }
+
 // 
-    // function renderLocations(locations) {
-        // locationsEl.innerHTML = ""
-        // locations.forEach(location => {
-            // var locationContainer = document.createElement("div")
-            // locationContainer.classList.add("location-container")
+    // fetch(url)
+        // .then(response => response.json())
+        // .then(data => {
+            // const { main, name, sys, weather } = data;
+            // const icon = `https://s3-us-west-2.amazonaws.com/s.cdpn.io/162656/${weather[0]["icon"]
+                // }.svg`;
 // 
-            // var name = document.createElement('h2')
-            // name.textContent = name + " , USA "
-            // locationContainer.appendChild(name)
-// 
+            // const li = document.createElement("li");
+            // li.classList.add("city");
+            // const markup = `
+        // <h2 class="city-name" data-name="${name},${sys.country}">
+        //   <span>${name}</span>
+        //   <sup>${sys.country}</sup>
+        // </h2>
+        // <div class="city-temp">${Math.round(main.temp)}<sup>°C</sup></div>
+        // <figure>
+        //   <img class="city-icon" src="${icon}" alt="${weather[0]["description"]
+                // }">
+        //   <figcaption>${weather[0]["description"]}</figcaption>
+        // </figure>
+    //   `;
+            // li.innerHTML = markup;
+            // list.appendChild(li);
         // })
-    // }
+        // .catch(() => {
+            // msg.textContent = "Please search for a valid city 😩";
+        // });
+// 
+    // msg.textContent = "";
+    // form.reset();
+    // input.focus();
 // });
+// 
+// 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // check codepen if we want to go back and solve for possible issues with locations "mockups have this as location not found"
 
@@ -235,3 +334,4 @@ form.addEventListener("submit", e => {
 //error, location not found
 
 //reset
+// }
