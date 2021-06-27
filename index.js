@@ -72,7 +72,7 @@ form.addEventListener("submit", e => {
                     <figcaption><span>${weather[0]["description"]}</span></figcaption>
                 </figure>            
                 <div class="city-temp"><span>currently: ${Math.round(main.temp)}<sup>°</sup></span>F</div>
-                <div class="feels-like"><span>feel like: ${Math.round(main.feels_like)}<sup>°</sup>F</span></div>
+                <div class="feels-like"><span>feels like: ${Math.round(main.feels_like)}<sup>°</sup>F</span></div>
             `;
             li.innerHTML = markup;
             list.appendChild(li);

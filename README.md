@@ -2,11 +2,22 @@
 
 ## Resources I used
 
+I could not figure out the renderUser piece in the lecture notes, so I followed along the tutorial past the submit form portion. 
+
+I used the stackoverflow for the icon part.
+
+I took your feedback about liking the card format and incorporated them into the final design. I tweaked the colors so that the icons could show up better. 
+
 Duckett, J., Ruppert, G., & Moore, J. (2014). Javascript & JQuery: Interactive front-end Web development. Indianapolis, Ind: John Wiley & Sons.
 
 https://webdesign.tutsplus.com/tutorials/build-a-simple-weather-app-with-vanilla-javascript--cms-33893
 
 https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon 
+
+https://www.rapidtables.com/web/css/css-color.html#blue
+
+MDW
+W3Schools
 
 &nbsp;
 ## Background

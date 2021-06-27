@@ -1,42 +1,96 @@
 body {
-  max-width: 1200px;
+  max-width: 1920px;
   overflow-x: hidden;
-  font-size: 1.5rem;
+  font-size: 2rem;
   margin: auto;
-  display: flex;
-  flex-direction: column;
-  background-repeat: no-repeat;
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* background-repeat: no-repeat; */
   min-height: 100vh;
-}
-
-h1 {
+  height: auto;
+  color: navy;
   text-align: center;
 }
 
-main {
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
-  max-width: 500px;
-  margin: auto;
+.vh-100 {
+    background-color: navy;
+    background-image: linear-gradient(to bottom, navy, deepskyblue);
 }
 
-main > div {
-  min-width: 400px;
-  margin-bottom: 50px;
+h1 {
+  color: white;    
 }
 
-main > div > a {
-  margin-bottom: 12px;
+/* main { */
+  /* display: flex; */
+  /* flex-direction: column; */
+  /* align-items: center;  */
+  /* max-width: 500px; */
+  /* margin: auto; */
+/* } */
+
+/* main > div { */
+  /* min-width: 400px; */
+  /* margin-bottom: 50px; */
+/* } */
+
+/* main > div > a { */
+  /* margin-bottom: 12px; */
+/* } */
+
+/* main > div > h3 { */
+  /* margin-bottom: 12px; */
+/* } */
+
+.input-button {
+    display: flex;
+    justify-content: center;
 }
 
-main > div > h3 {
-  margin-bottom: 12px;
+form input {
+    padding: 5px;
+    margin-bottom: 5px;
 }
 
 button {
-  width: 200px;
-  margin: auto;
-  padding: 25px;
-  margin-bottom: 50px;
+  width: 75px;
+  padding: 5px;
+  margin-bottom: 5px;
+}
+
+.message {
+    display: flex;
+    justify-content: center;
+}
+
+.ajax {
+    display: flex;
+    justify-content: center;
+}
+
+.ajax ul {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.ajax ul li {
+    list-style-type: none;
+    justify-content: center;
+    border: 5px solid silver;
+    border-radius: 5px;
+    padding: .75rem;
+    margin: .75rem;  
+    background-color: white;
+}
+
+@media (min-width: 1200px) {
+    .ajax ul {
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    .vh-100 {
+        background-image: linear-gradient(to bottom right, navy, deepskyblue);
+    }
 }
