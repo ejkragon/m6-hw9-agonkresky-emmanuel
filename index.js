@@ -51,7 +51,7 @@ form.addEventListener("submit", e => {
         // return res.json() //lecture notes
     // })
         .then(data => {
-            var { name, weatherDescription, weatherIcon, mainTemp, mainFeelsLike, dt } = data; //codepen
+            var { main, name, sys, weather, dt } = data; //codepen
             // var { name, weatherDescription, weatherIcon, mainTemp, mainFeelsLike, dt } = data
             // renderUsers(res.results) //lecture notes; this is causing an error. Examples has it as "users"
             // var { name, weatherDescription, weatherIcon, mainTemp, mainFeelsLike, dt } = data //codepen
@@ -60,26 +60,30 @@ form.addEventListener("submit", e => {
             // .then(function(res) {
             // renderUsers(res.results)
         
-            var li = document.createElement("li")
-            li.classList.add("city")
-            var markup = `
+            const li = document.createElement("li");
+            li.classList.add("city");
+            const markup = `
                 <h2 class="city-name" data-name="${name},${sys.country}">
-                    <span>${name}</span>
-                    <sup>${sys.country}</sup>
+                    <span>${name}, ${sys.country}</span>
                 </h2>
-                <div class="city-temp">${Math.round(main.temp)}<sup>°F</sup></div>
+                <div class="city-temp"><span>Currently: ${Math.round(main.temp)}<sup>°F</sup></span></div>
+                <div class="feels-like"><span>Feel Like: ${Math.round(main.feels_like)}<sup>°F</sup></span></div>
             `;
-            li.innerHTML = markup
-            list.appendChild(li)
+            li.innerHTML = markup;
+            list.appendChild(li);
         })
+        
+                // <div class="last-update">${dt}</div> // time would need to be converted, skipping for now 
+                                                                     
+                                     
         .catch(() => {
-            msg.textContent = "Please search for a valid city"
-        })
+            msg.textContent = "Location not found";
+        });
 
     msg.textContent = ""
     form.reset()
     input.focus()
-})
+    });
 
 // function renderUsers(users) {
     // usersEl.innerHTML = ""
