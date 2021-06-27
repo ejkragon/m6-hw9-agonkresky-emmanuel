@@ -6,6 +6,8 @@ Duckett, J., Ruppert, G., & Moore, J. (2014). Javascript & JQuery: Interactive f
 
 https://webdesign.tutsplus.com/tutorials/build-a-simple-weather-app-with-vanilla-javascript--cms-33893
 
+https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon 
+
 &nbsp;
 ## Background
 

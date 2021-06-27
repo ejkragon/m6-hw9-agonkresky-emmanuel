@@ -44,37 +44,48 @@ form.addEventListener("submit", e => {
     }
 
     var url = `https://api.openweathermap.org/data/2.5/weather?q=${inputVal}&units=imperial&appid=${apiKey}` // copy and pasted from Lee's word doc, removed spaces and typed in ${variables}
+    // var locationIcon = document.querySelector(".weather-icon") //https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon?newreg=7544d0125bb4487892a1a077c3b8d075
 
-    fetch(url) // make the request https://api.openweathermap.org/data/2.5/weather?q=Orlando&appid=c54b26351ced73049073d309a5b59b67&units=imperial
+
+    fetch(url) // make the request 
         .then(response => response.json()) //codepen
     // .then(function(res) {
         // return res.json() //lecture notes
     // })
         .then(data => {
             var { main, name, sys, weather, dt } = data; //codepen
-            // var { name, weatherDescription, weatherIcon, mainTemp, mainFeelsLike, dt } = data
             // renderUsers(res.results) //lecture notes; this is causing an error. Examples has it as "users"
-            // var { name, weatherDescription, weatherIcon, mainTemp, mainFeelsLike, dt } = data //codepen
             console.log(inputVal); // note this will log BEFORE fetch is finished
             console.log(data);
             // .then(function(res) {
             // renderUsers(res.results)
         
-            const li = document.createElement("li");
+            var li = document.createElement("li");
             li.classList.add("city");
-            const markup = `
+            // var {icon} = value.weather
+            var markup = `
                 <h2 class="city-name" data-name="${name},${sys.country}">
                     <span>${name}, ${sys.country}</span>
-                </h2>
-                <div class="city-temp"><span>Currently: ${Math.round(main.temp)}<sup>°F</sup></span></div>
-                <div class="feels-like"><span>Feel Like: ${Math.round(main.feels_like)}<sup>°F</sup></span></div>
+                </h2>               
+                <figure>
+                    <img class="city-icon" src="openweathermap-api-icons/icons/${weather[0]["icon"]}.png" alt={weather[0]["description"]}">
+                    <figcaption><span>${weather[0]["description"]}</span></figcaption>
+                </figure>            
+                <div class="city-temp"><span>currently: ${Math.round(main.temp)}<sup>°</sup></span>F</div>
+                <div class="feels-like"><span>feel like: ${Math.round(main.feels_like)}<sup>°</sup>F</span></div>
             `;
             li.innerHTML = markup;
             list.appendChild(li);
         })
-        
+
+
+                // < img class="city-icon" src = "openweathermap-api-icons/icons/${icon}.png" alt = "${weather[0]["description"]}" >
+                //  https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon
                 // <div class="last-update">${dt}</div> // time would need to be converted, skipping for now 
-                                                                     
+                 // <figure>
+                    // <img class="city-icon" src="${icon}" alt="${weather[0]["description"]}">
+                    // <figcation>${weather[0]["description"]}</figcaption>
+                // </figure>
                                      
         .catch(() => {
             msg.textContent = "Location not found";
@@ -329,7 +340,6 @@ form.addEventListener("submit", e => {
     // pizza.cost += toppingsArray.length * toppingsFee
 // }
 
-//https://stackoverflow.com/questions/44177417/how-to-display-openweathermap-weather-icon
 
 
 
