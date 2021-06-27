@@ -2,11 +2,11 @@
 
 ## Resources I used
 
-I could not figure out the renderUser piece in the lecture notes, so I followed along the tutorial past the submit form portion. 
+I originally wanted to use the tutorial for the submit form only, but I used it for adding the additional elements as well as I could not figure out the renderUser part from the lecture notes. 
 
-I used the stackoverflow for the icon part.
+I used the stackoverflow for the icons. I used JS only and not JQuery, although I did end up downloading the icons to an images folder. 
 
-I took your feedback about liking the card format and incorporated them into the final design. I tweaked the colors so that the icons could show up better. 
+I remember you mentining that you liked the card format from the tutorial, so I incorporated it into the final design.  
 
 Duckett, J., Ruppert, G., & Moore, J. (2014). Javascript & JQuery: Interactive front-end Web development. Indianapolis, Ind: John Wiley & Sons.
 
